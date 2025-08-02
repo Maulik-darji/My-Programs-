@@ -395,6 +395,22 @@ print(Counter(s))</code></pre>
         document.body.removeChild(textarea);
       }
     });
+
+    // Close sidebar when clicking outside of it (on mobile)
+document.addEventListener('click', function(event) {
+  const sidebar = document.getElementById('sidebar');
+  const hamburger = document.querySelector('.hamburger');
+
+  const isClickInsideSidebar = sidebar.contains(event.target);
+  const isHamburgerClicked = hamburger.contains(event.target);
+
+  const isSidebarOpen = sidebar.classList.contains('open');
+
+  if (!isClickInsideSidebar && !isHamburgerClicked && isSidebarOpen && window.innerWidth <= 768) {
+    sidebar.classList.remove('open');
+  }
+});
+
   </script>
 
 </body>
