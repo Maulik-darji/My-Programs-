@@ -5,44 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Grid Background with Sidebar</title>
   <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-    }
-
-    body {
+      font-family: Arial, sans-serif;
       background-color: #000000;
       background-image:
         linear-gradient(to right, #1e1e1e 1px, transparent 1px),
         linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
-      background-size: 40px 40px;
-      font-family: Arial, sans-serif;
+      background-size: calc(4vw + 10px) calc(4vw + 10px);
       color: white;
     }
 
-    .container {
+    @media (min-width: 769px) {
+      body {
+        background-size: 40px 40px;
+      }
+    }
+
+    .wrapper {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      height: 100%;
       display: flex;
-      height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      height: 100%;
     }
 
     .sidebar {
       width: 250px;
-      text-align: center;
       background-color: #1a1a1a;
       padding: 20px;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
     }
 
     .sidebar h2 {
-      margin: 50px;
+      margin: 50px 0 20px;
       background-color: black;
       font-size: 20px;
       padding: 20px 30px;
       border-radius: 4px;
+      text-align: center;
     }
 
     .dropdown-header {
@@ -76,7 +91,6 @@
     }
 
     .dropdown-list li {
-      padding: 0;
       cursor: pointer;
     }
 
@@ -100,31 +114,21 @@
     }
 
     .heading {
-      font-size: 50px;
-      animation: headingfloat 4s ease-in-out infinite;
+      font-size: clamp(2rem, 5vw, 50px);
       text-align: center;
     }
 
     .Home {
       display: flex;
-      align-items: center;     /* vertical centering */
-      height: 50px;            /* set a fixed height */
-      padding: 0 10px;         /* keep horizontal padding */
-      text-align: left;        /* ensure text stays left-aligned */
+      align-items: center;
+      height: 50px;
+      padding: 0 10px;
     }
-
 
     .Home:hover {
       background-color: #67676747;
       border-radius: 4px;
       text-decoration: underline;
-      align-content: center;
-    }
-
-    @keyframes headingfloat {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(0); }
     }
 
     pre {
@@ -132,47 +136,133 @@
       padding: 15px;
       border-radius: 6px;
       overflow-x: auto;
+      position: relative;
     }
 
     h2 {
       margin-top: 0;
     }
+
+    .hamburger {
+      display: none;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    .code-block {
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        z-index: 998;
+        max-width: 100%;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .content-area {
+        padding-top: 60px;
+      }
+
+      .wrapper {
+        padding: 0 10px;
+      }
+
+      .copy-btn {
+        top: 5px;
+        right: 5px;
+        font-size: 12px;
+        padding: 4px 10px;
+      }
+
+      pre {
+        padding-top: 40px;
+      }
+    }
+
+    @keyframes headingfloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Menu</h2>
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
 
-      <div class="Home">
-        <a href="../index.html" style="text-decoration: none; color: white;">Home</a>
+  <div class="wrapper">
+    <div class="container">
+      <div class="sidebar" id="sidebar">
+        <h2>Menu</h2>
+
+        <div class="Home">
+          <a href="../index.html" style="text-decoration: none; color: white;">Home</a>
+        </div>
+
+        <div class="dropdown-header" onclick="toggleDropdown('arrayDropdown', this)">
+          <span class="triangle">&#9654;</span> Array
+        </div>
+        <ul class="dropdown-list" id="arrayDropdown">
+          <li><a href="#" id="program1" title="sum of two numbers">Program 1</a></li>
+          <li><a href="#" id="program2" title="factorial">Program 2</a></li>
+          <li><a href="#" id="program3" title="Fibonacci">Program 3</a></li>
+        </ul>
+
+        <div class="dropdown-header" onclick="toggleDropdown('stringDropdown', this)">
+          <span class="triangle">&#9654;</span> String
+        </div>
+        <ul class="dropdown-list" id="stringDropdown">
+          <li><a href="#" id="programA">Program A</a></li>
+          <li><a href="#" id="programB">Program B</a></li>
+          <li><a href="#" id="programC">Program C</a></li>
+        </ul>
       </div>
 
-      <div class="dropdown-header" onclick="toggleDropdown('arrayDropdown', this)">
-        <span class="triangle">&#9654;</span> Array
-      </div>
-      <ul class="dropdown-list" id="arrayDropdown">
-        <li><a href="#" id="program1" title="sum of two numbers">Program 1</a></li>
-        <li><a href="#" id="program2" title="factorial">Program 2</a></li>
-        <li><a href="#" id="program3" title="Fibonacci">Program 3</a></li>
-      </ul>
-
-      <div class="dropdown-header" onclick="toggleDropdown('stringDropdown', this)">
-        <span class="triangle">&#9654;</span> String
-      </div>
-      <ul class="dropdown-list" id="stringDropdown">
-        <li><a href="#" id="programA">Program A</a></li>
-        <li><a href="#" id="programB">Program B</a></li>
-        <li><a href="#" id="programC">Program C</a></li>
-      </ul>
-    </div>
-
-    <!-- Content Area -->
-    <div class="content-area" id="content">
-      <div class="heading">
-        <strong>Python Directory</strong>
+      <div class="content-area" id="content">
+        <div class="heading"><strong>Python Directory</strong></div>
       </div>
     </div>
   </div>
@@ -186,42 +276,62 @@
       triangle.classList.toggle('rotate', !isOpen);
     }
 
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
     const contentMap = {
       program1: `<h2>Program 1: Sum of Two Numbers</h2>
-        <pre><code>def add(a, b):
-            return a + b
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>def add(a, b):
+    return a + b
 
-        print(add(5, 3))</code></pre>
-        <br><br><h2> Logic
-        `,
+print(add(5, 3))</code></pre>
+</div>`,
 
       program2: `<h2>Program 2: Factorial</h2>
-<pre><code>def factorial(n):
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>def factorial(n):
     return 1 if n == 0 else n * factorial(n - 1)
 
-print(factorial(5))</code></pre>`,
+print(factorial(5))</code></pre>
+</div>`,
 
       program3: `<h2>Program 3: Fibonacci</h2>
-<pre><code>def fib(n):
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>def fib(n):
     a, b = 0, 1
     for _ in range(n):
         print(a, end=' ')
         a, b = b, a + b
 
-fib(10)</code></pre>`,
+fib(10)</code></pre>
+</div>`,
 
       programA: `<h2>Program A: Reverse String</h2>
-<pre><code>s = "hello"
-print(s[::-1])</code></pre>`,
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>s = "hello"
+print(s[::-1])</code></pre>
+</div>`,
 
       programB: `<h2>Program B: Palindrome Check</h2>
-<pre><code>s = "madam"
-print(s == s[::-1])</code></pre>`,
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>s = "madam"
+print(s == s[::-1])</code></pre>
+</div>`,
 
       programC: `<h2>Program C: Character Frequency</h2>
-<pre><code>from collections import Counter
+<div class="code-block">
+  <button class="copy-btn">Copy</button>
+  <pre><code>from collections import Counter
 s = "hello world"
-print(Counter(s))</code></pre>`
+print(Counter(s))</code></pre>
+</div>`
     };
 
     Object.keys(contentMap).forEach(id => {
@@ -231,7 +341,58 @@ print(Counter(s))</code></pre>`
           event.preventDefault();
           const content = document.getElementById("content");
           content.innerHTML = contentMap[id];
+          if (window.innerWidth <= 768) {
+            document.getElementById('sidebar').classList.remove('open');
+          }
         });
+      }
+    });
+
+    // Universal copy handler with fallback
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('copy-btn')) {
+        const codeElement = e.target.nextElementSibling;
+        const code = codeElement.innerText;
+
+        // Clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(code).then(() => {
+            showCopyFeedback(e.target);
+          }).catch(() => {
+            fallbackCopy(code, e.target);
+          });
+        } else {
+          fallbackCopy(code, e.target);
+        }
+      }
+
+      function showCopyFeedback(button) {
+        const original = button.innerText;
+        button.innerText = "Copied";
+        setTimeout(() => {
+          button.innerText = original;
+        }, 2000);
+      }
+
+      function fallbackCopy(text, button) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            showCopyFeedback(button);
+          } else {
+            alert("Copy not supported on this browser.");
+          }
+        } catch (err) {
+          alert("Copy failed: " + err);
+        }
+        document.body.removeChild(textarea);
       }
     });
   </script>
