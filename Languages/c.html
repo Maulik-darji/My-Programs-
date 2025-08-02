@@ -14,7 +14,7 @@
     body {
       background-color: #0a0a0a;
       background-image: 
-        linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+        linear-gradient(to right, #1e1e1e 1pax, transparent 1px),
         linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
       background-size: 40px 40px;
       font-family: Arial, sans-serif;
@@ -38,7 +38,11 @@
     }
 
     .sidebar h2 {
-        margin: 50px;
+      margin: 50px;
+      background-color: black;
+      font-size: 20px;
+      padding: 20px 30px;
+      border-radius: 4px;
     }
 
     .dropdown-header {
@@ -48,6 +52,11 @@
       gap: 8px;
       cursor: pointer;
       user-select: none;
+    }
+
+    .dropdown-header:hover {
+      background-color: #67676747;
+      border-radius: 4px;
     }
 
     .triangle {
@@ -67,18 +76,27 @@
     }
 
     .dropdown-list li {
-      padding: 5px 0;
-      color: #ccc;
+      padding: 0;
       cursor: pointer;
     }
 
-    .dropdown-list li:hover {
+    .dropdown-list a {
       color: white;
+      text-decoration: none;
+      display: block;
+      padding: 5px 0;
+    }
+
+    .dropdown-list a:hover {
+      background-color: #67676747;
+      border-radius: 4px;
+      text-decoration: underline;
     }
 
     .content-area {
       flex: 1;
       padding: 20px;
+      overflow-y: auto;
     }
 
     .heading {
@@ -87,10 +105,37 @@
       text-align: center;
     }
 
+    .Home {
+      display: flex;
+      align-items: center;     /* vertical centering */
+      height: 50px;            /* set a fixed height */
+      padding: 0 10px;         /* keep horizontal padding */
+      text-align: left;        /* ensure text stays left-aligned */
+    }
+
+
+    .Home:hover {
+      background-color: #67676747;
+      border-radius: 4px;
+      text-decoration: underline;
+      align-content: center;
+    }
+
     @keyframes headingfloat {
       0% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
       100% { transform: translateY(0); }
+    }
+
+    pre {
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    h2 {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -101,37 +146,33 @@
     <div class="sidebar">
       <h2>Menu</h2>
 
+      <div class="Home">
+        <a href="../index.html" style="text-decoration: none; color: white;">Home</a>
+      </div>
+
       <div class="dropdown-header" onclick="toggleDropdown('arrayDropdown', this)">
         <span class="triangle">&#9654;</span> Array
       </div>
       <ul class="dropdown-list" id="arrayDropdown">
-        <li>Program 1</li>
-        <li>Program 2</li>
-        <li>Program 3</li>
+        <li><a href="#" id="program1" title="sum of two numbers">Program 1</a></li>
+        <li><a href="#" id="program2" title="factorial">Program 2</a></li>
+        <li><a href="#" id="program3" title="Fibonacci">Program 3</a></li>
       </ul>
 
       <div class="dropdown-header" onclick="toggleDropdown('stringDropdown', this)">
         <span class="triangle">&#9654;</span> String
       </div>
       <ul class="dropdown-list" id="stringDropdown">
-        <li>Program A</li>
-        <li>Program B</li>
-        <li>Program C</li>
+        <li><a href="#" id="programA">Program A</a></li>
+        <li><a href="#" id="programB">Program B</a></li>
+        <li><a href="#" id="programC">Program C</a></li>
       </ul>
     </div>
 
     <!-- Content Area -->
-    <div class="content-area">
+    <div class="content-area" id="content">
       <div class="heading">
         <strong>C/C++ Directory</strong>
-      </div>
-      <div class="menu">
-        <h1>Programs</h1>
-        <ul>
-          <li>Program 1</li>
-          <li>Program 2</li>
-          <li>Program 3</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -141,10 +182,58 @@
       const dropdown = document.getElementById(id);
       const triangle = headerElement.querySelector('.triangle');
       const isOpen = dropdown.style.display === 'block';
-
       dropdown.style.display = isOpen ? 'none' : 'block';
       triangle.classList.toggle('rotate', !isOpen);
     }
+
+    const contentMap = {
+      program1: `<h2>Program 1: Sum of Two Numbers</h2>
+        <pre><code>def add(a, b):
+            return a + b
+
+        print(add(5, 3))</code></pre>
+        <br><br><h2> Logic
+        `,
+
+      program2: `<h2>Program 2: Factorial</h2>
+<pre><code>def factorial(n):
+    return 1 if n == 0 else n * factorial(n - 1)
+
+print(factorial(5))</code></pre>`,
+
+      program3: `<h2>Program 3: Fibonacci</h2>
+<pre><code>def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        print(a, end=' ')
+        a, b = b, a + b
+
+fib(10)</code></pre>`,
+
+      programA: `<h2>Program A: Reverse String</h2>
+<pre><code>s = "hello"
+print(s[::-1])</code></pre>`,
+
+      programB: `<h2>Program B: Palindrome Check</h2>
+<pre><code>s = "madam"
+print(s == s[::-1])</code></pre>`,
+
+      programC: `<h2>Program C: Character Frequency</h2>
+<pre><code>from collections import Counter
+s = "hello world"
+print(Counter(s))</code></pre>`
+    };
+
+    Object.keys(contentMap).forEach(id => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.addEventListener('click', function(event) {
+          event.preventDefault();
+          const content = document.getElementById("content");
+          content.innerHTML = contentMap[id];
+        });
+      }
+    });
   </script>
 
 </body>
