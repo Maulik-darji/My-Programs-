@@ -4,104 +4,175 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Grid Background</title>
-    
     <style>
-
         @font-face {
             font-family: 'heading_sf';
             src: url('Practice/font/Fonts/SF-Pro-Text-Bold.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
 
-
         html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body {
-        background-color: #000000;
-        background-image: 
-            linear-gradient(to right, #1e1e1e 1px, transparent 1px),
-            linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
-        background-size: 40px 40px;
+            background-color: #000000;
+            background-image: 
+                linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+                linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
+            background-size: 5vw 5vw; /* Responsive grid size */
+            font-family: 'heading_sf', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+            max-width: 90vw; /* Responsive width */
+            margin: 0 auto;
+            padding: 0 4vw;
+            box-sizing: border-box;
         }
 
         @keyframes headingfloat {
-        0%   { transform: translateY(0); }
-        50%  { transform: translateY(-20px); }
-        100% { transform: translateY(0); }
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-1.5rem); }
+            100% { transform: translateY(0); }
         }
 
         .heading {
-        font-family:heading_sf;
-        color: rgb(255, 255, 255);
-        text-align: center;
-        font-size: 50px;
-        padding-top: 30px;
-        animation: headingfloat 4s ease-in-out infinite;
+            font-family: 'heading_sf', sans-serif;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 3.5rem); /* Responsive font size */
+            padding-top: 2rem;
+            animation: headingfloat 4s ease-in-out infinite;
+            margin-bottom: 2rem;
         }
 
         .menu {
-        color: rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
+        }
+
+        .menu h1 {
+            font-size: clamp(1.5rem, 6vw, 2.5rem); /* Responsive heading */
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
 
         .language_item ul {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        padding: 0;
-        margin-top: 30px;
-        justify-content: center;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 0;
+            margin: 2rem 0;
+            justify-content: center;
         }
 
         .language_item li {
-        background-color: #1e1e1e;
-        padding: 20px 30px;
-        border-radius: 4px;
-        font-size: 20px;
-        text-align: start;
-        cursor: pointer;
-        transition:
-            background-color 0.3s,
-            box-shadow 0.2s,
-            transform 0.1s;
-        box-shadow: 8px 8px 0px #15ebb2;
+            background-color: #1e1e1e;
+            padding: 1.2rem 1.8rem;
+            border-radius: 4px;
+            font-size: clamp(1rem, 4vw, 1.25rem); /* Responsive font size */
+            text-align: start;
+            cursor: pointer;
+            transition:
+                background-color 0.3s,
+                box-shadow 0.2s,
+                transform 0.1s;
+            box-shadow: 0.5rem 0.5rem 0px #15ebb2;
         }
 
         .language_item li:hover {
-        transform: translate(4px, 1px) scale(0.99);
-        text-decoration: underline;
+            transform: translate(0.25rem, 0.0625rem) scale(0.99);
+            text-decoration: underline;
         }
 
         .language_item li:active {
-        transform: translateY(2px);
-        box-shadow: none;
+            transform: translateY(0.125rem);
+            box-shadow: none;
+        }
+
+        .language_item li a {
+            text-decoration: none;
+            color: white;
+            display: block; /* Ensures the entire list item is clickable */
+        }
+
+        /* Media Queries for additional responsiveness */
+        @media screen and (max-width: 768px) {
+            body {
+                background-size: 8vw 8vw; /* Larger grid for tablets */
+            }
+
+            .container {
+                padding: 0 3vw;
+            }
+
+            .heading {
+                font-size: clamp(1.8rem, 7vw, 3rem);
+                padding-top: 1.5rem;
+            }
+
+            .menu h1 {
+                font-size: clamp(1.2rem, 5vw, 2rem);
+            }
+
+            .language_item li {
+                padding: 1rem 1.5rem;
+                box-shadow: 0.3rem 0.3rem 0px #15ebb2;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body {
+                background-size: 10vw 10vw; /* Larger grid for mobile */
+            }
+
+            .container {
+                padding: 0 5vw;
+            }
+
+            .heading {
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+                padding-top: 1rem;
+            }
+
+            .menu h1 {
+                font-size: clamp(1rem, 4.5vw, 1.8rem);
+            }
+
+            .language_item ul {
+                gap: 1rem;
+            }
+
+            .language_item li {
+                padding: 0.8rem 1.2rem;
+                font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+                box-shadow: 0.2rem 0.2rem 0px #15ebb2;
+            }
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <div class="container">
         <div class="heading">
-        <strong>My Programs </strong>
+            <strong>My Programs</strong>
         </div>
         <div class="menu">
-        <h1>Languages</h1>
-        <div class="language_item">
-            <ul>  
-                <li><a title="python" href="Languages/python.html" class="Languages_link" style="text-decoration: none; color: white;" >Python</a></li>
-                <li><a title="Java" href="Languages/java.html" class="Languages_link" style="text-decoration: none; color: white;" >JAVA</a></li>
-                <li><a title="C/C++" href="Languages/c.html" class="Languages_link" style="text-decoration: none; color: white;" >C/C++</a></li>
-            </ul>
-        </div>
+            <h1>Languages</h1>
+            <div class="language_item">
+                <ul>  
+                    <li><a title="Python" href="Languages/python.html" class="Languages_link">Python</a></li>
+                    <li><a title="Java" href="Languages/java.html" class="Languages_link">Java</a></li>
+                    <li><a title="C/C++" href="Languages/c.html" class="Languages_link">C/C++</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-    </body>
-    </html>
+</body>
+</html>
