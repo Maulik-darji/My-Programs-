@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Grid Background</title>
+    
+    <style>
+
+        @font-face {
+            font-family: 'heading_sf';
+            src: url('Practice/font/Fonts/SF-Pro-Text-Bold.otf') format('opentype');
+        }
+
+
+        html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+
+        body {
+        background-color: #000000;
+        background-image: 
+            linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+            linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
+        background-size: 40px 40px;
+        }
+
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        }
+
+        @keyframes headingfloat {
+        0%   { transform: translateY(0); }
+        50%  { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+        }
+
+        .heading {
+        font-family:heading_sf;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        font-size: 50px;
+        padding-top: 30px;
+        animation: headingfloat 4s ease-in-out infinite;
+        }
+
+        .menu {
+        color: rgb(255, 255, 255);
+        }
+
+        .language_item ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0;
+        margin-top: 30px;
+        justify-content: center;
+        }
+
+        .language_item li {
+        background-color: #1e1e1e;
+        padding: 20px 30px;
+        border-radius: 4px;
+        font-size: 20px;
+        text-align: start;
+        cursor: pointer;
+        transition:
+            background-color 0.3s,
+            box-shadow 0.2s,
+            transform 0.1s;
+        box-shadow: 8px 8px 0px #15ebb2;
+        }
+
+        .language_item li:hover {
+        transform: translate(4px, 1px) scale(0.99);
+        text-decoration: underline;
+        }
+
+        .language_item li:active {
+        transform: translateY(2px);
+        box-shadow: none;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="heading">
+        <strong>My Programs </strong>
+        </div>
+        <div class="menu">
+        <h1>Languages</h1>
+        <div class="language_item">
+            <ul>  
+                <li><a title="python" href="Languages/python.html" class="Languages_link" style="text-decoration: none; color: white;" >Python</a></li>
+                <li><a title="Java" href="Languages/java.html" class="Languages_link" style="text-decoration: none; color: white;" >Java</a></li>
+                <li><a title="C/C++" href="Languages/c.html" class="Languages_link" style="text-decoration: none; color: white;" >C/C++</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
+    </body>
+    </html>

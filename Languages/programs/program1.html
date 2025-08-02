@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grid Background with Sidebar</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      background-image: 
+        linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+        linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      text-align: center;
+      background-color: #1a1a1a;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    }
+
+    .sidebar h2 {
+        margin: 50px;
+        background-color: black;
+        font-size: 20px;
+        padding: 20px 30px;
+        border-radius: 4px;
+    }
+
+    .dropdown-header {
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .dropdown-header:hover{
+      background-color: #67676747;
+      border-radius: 4px;
+    }
+
+    .triangle {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .rotate {
+      transform: rotate(90deg);
+    }
+
+    .dropdown-list {
+      list-style: none;
+      padding-left: 15px;
+      margin: 0;
+      display: none;
+    }
+
+    .dropdown-list li {
+      padding: 5px 0;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .dropdown-list li:hover{
+      background-color: #67676747;
+      border-radius: 4px;
+      text-decoration: underline;
+    }
+
+    .dropdown-list li:hover {
+      color: white;
+    }
+
+    .content-area {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .heading {
+      font-size: 50px;
+      animation: headingfloat 4s ease-in-out infinite;
+      text-align: center;
+    }
+
+    .Home{
+      padding: 8px 10px;
+      text-align: start;
+      padding-bottom: 20px;
+    }
+
+    .Home:hover{
+      background-color: #67676747;
+      border-radius: 4px;
+      text-decoration: underline;
+    }
+
+    @keyframes headingfloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Menu</h2>
+      
+      <div class="Home">
+        <a href="../index.html" style="text-decoration: none;
+        color: white;">Home</a>
+      </div>
+      <div class="dropdown-header" onclick="toggleDropdown('arrayDropdown', this)">
+        <span class="triangle">&#9654;</span> Array
+      </div>
+      <ul class="dropdown-list" id="arrayDropdown">
+        <li>Program 1</li>
+        <li>Program 2</li>
+        <li>Program 3</li>
+      </ul>
+
+      <div class="dropdown-header" onclick="toggleDropdown('stringDropdown', this)">
+        <span class="triangle">&#9654;</span> String
+      </div>
+      <ul class="dropdown-list" id="stringDropdown">
+        <li>Program A</li>
+        <li>Program B</li>
+        <li>Program C</li>
+      </ul>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <div class="heading">
+        <strong>Python Directory</strong>
+      </div>
+
+  <script>
+    function toggleDropdown(id, headerElement) {
+      const dropdown = document.getElementById(id);
+      const triangle = headerElement.querySelector('.triangle');
+      const isOpen = dropdown.style.display === 'block';
+
+      dropdown.style.display = isOpen ? 'none' : 'block';
+      triangle.classList.toggle('rotate', !isOpen);
+    }
+  </script>
+
+</body>
+</html>

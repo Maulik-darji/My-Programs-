@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Background</title>
+    <style>
+        /* You can remove this if you don't need it */
+        html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+
+        body {
+        background-color: #0a0a0a;
+        background-image: 
+            linear-gradient(to right, #1e1e1e 1px, transparent 1px),
+            linear-gradient(to bottom, #1e1e1e 1px, transparent 1px);
+        background-size: 40px 40px;
+        }
+
+        .container{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @keyframes headingfloat {
+            0% {transform:  translateY(0);}
+            50% {transform: translateY(-20px);}
+            100% {transform: translateY(0);}
+        }
+
+        .heading {
+            color: white;
+            text-align: center;
+            font-size:50px;
+            padding-top: 30px;
+            animation: headingfloat 4s ease-in-out infinite;
+        }
+
+        .menu{
+            color: white;
+        }
+
+        .language_item ul{
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .language_item li{
+            background-color: #1e1e1e;
+            padding: 20px 30px;
+            border-radius: 4px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 
+                background-color 0.3,
+                box-shadow 0.3s
+                transform 0.1s ;
+            box-shadow: 8px 8px 0px #15ebb2 ;
+        }
+
+        .language_item li:active{
+            transform:  translateY(2px);
+            box-shadow: 8px 8px 0px;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <strong>Languages</strong>
+        </div>
+        <div class="menu">
+            <h1>Menu</h1>
+            <div class="language_item">
+                <ul>
+                    <li>JAVA </li>
+                    <li>Python</li>
+                    <li>C/C++</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
